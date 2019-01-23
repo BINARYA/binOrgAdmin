@@ -1,0 +1,206 @@
+<ion-header>
+
+    <ion-toolbar color="tertiary">
+
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+          </ion-toolbar>
+<ion-toolbar color="tertiary">
+    <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="tipo">
+        <ion-segment-button value="utenti">
+          Utenti
+        </ion-segment-button>
+        <ion-segment-button value="inviti">
+          Inviti
+        </ion-segment-button>
+      </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [ngSwitch]="tipo">
+
+<div *ngSwitchCase="'utenti'" >
+
+  <ion-card>
+
+
+    <ion-card-header>
+      <ion-card-title> Utenti  </ion-card-title>
+
+      </ion-card-header>
+    
+    <ion-card-content>
+      <ion-item>
+        statistiche
+        <ion-chip slot="end" color="primary">
+            <ion-label >20</ion-label>
+          </ion-chip>
+        </ion-item>      
+    </ion-card-content>
+    
+    </ion-card>
+
+
+
+<ion-card>
+ 
+  
+<!--    <pre>{{ (fireService.afAuth.user | async) | json }}</pre> -->
+    
+    <ion-list>
+      <ion-item  *ngFor="let ou of utenti" > <!-- (click)="goToTool(st, i.uid)" -->
+
+        <ion-avatar slot="start" *ngIf="(ou.utente.data | async )?.photoURL as url">
+        <img [src]="url">
+      </ion-avatar>
+      
+      
+
+      <ion-label>
+<h2> {{ (ou.utente.data | async)?.displayName }} </h2>
+<p> {{ (ou.utente.data | async)?.nome }} {{ (ou.utente.data | async)?.cognome }} </p>
+<!--  <p> {{ ou.utente.uid }} </p><p>{{ (fireService.afAuth.user | async)?.uid }}</p> 
+
+<pre> {{ ou  | json }}</pre>
+-->
+
+
+
+      </ion-label>                          
+      <ion-badge *ngIf="(ou.socio)" slot="end" color="primary">Socio</ion-badge>
+      <ion-badge *ngIf="(ou.admin)" slot="end" color="warning">Admin</ion-badge>
+      <ion-badge *ngIf="(ou.superAdmin.data | async)?.ref" slot="end" color="danger">Super Admin</ion-badge>
+      
+      <!-- NON vedo bottone di rimozione utente se sei super admin o te stesso -->
+      
+<!--       <pre>{{ ou | json   }}</pre> 
+
+(click)="goToDetail(item)"
+
+-->
+
+<ion-button *ngIf="(ou.superadmin)" slot="end" shape="round" fill="outline" (click)="goToDetail(ou.utente.uid)" >
+    <ion-icon  name="create" slot="icon-only" ></ion-icon>  
+</ion-button>
+
+<ion-button *ngIf="(!ou.superadmin) && !(ou.utente.uid==(fireService.afAuth.user | async)?.uid)" slot="end" color="danger" shape="round" fill="outline" (click)="goToDetail(ou.utente.uid)" >
+    <ion-icon  name="close-circle" color="danger" slot="end"></ion-icon>
+</ion-button>
+
+</ion-item> 
+      </ion-list>
+  
+  </ion-card>
+
+</div>
+
+<div *ngSwitchCase="'inviti'">
+
+
+
+  <ion-card>
+
+      <ion-item>
+          <ion-label type="email" >Email</ion-label>
+          <ion-input #boxInputMail [(ngModel)] = "invitiMail" ></ion-input>
+          <ion-button (click)="sendInvite(boxInputMail.value)"  >
+              <ion-icon slot="end" name="add"></ion-icon>
+              invita
+            </ion-button>
+      
+      </ion-item>          
+
+<!--
+      <ion-item>
+          <ion-label type="email" >Spam Toast Email</ion-label>
+          <ion-input #boxInputMail [(ngModel)] = "invitiMail" ></ion-input>
+          <ion-button (click)="spamToast(invitiMail)"  >
+              <ion-icon slot="end" name="add"></ion-icon>
+              invita
+            </ion-button>
+      
+      </ion-item>          
+-->      
+
+  </ion-card>
+
+  <ion-card>
+
+
+
+
+      <ion-card-header>
+        <ion-card-title>Inviti inoltrati</ion-card-title>
+
+
+   
+      
+      
+      </ion-card-header>
+      
+      <ion-card-content>
+       
+      <ion-list>
+          
+      <ion-item  *ngFor="let i of inviti"  > 
+        <!--          <pre>{{ i | json  }}</pre> 
+                <p>{{ i.uid  }}</p>
+        <p>{{ i.organizzazione }}</p>
+  
+        <pre> {{  i | json  }} </pre>
+        -->
+      
+      <ion-label (click)="goToInvito(i.uid)">
+  
+        <h2>{{ i.mail_invito }}  </h2>
+        <p> gg-mm-aaaa         
+          
+          <ion-chip *ngIf="i.stato.accettato" [color]="i.stato.accettato ? 'secondary' : 'light'"  >
+            <ion-label>Invito Accettato</ion-label>
+          </ion-chip>
+   
+
+          <ion-chip *ngIf="i.stato.letto" [color]="i.stato.letto ? 'primary' : 'light'"  >
+              <ion-label>Invito letto</ion-label>
+            </ion-chip>
+  
+
+            <ion-chip *ngIf="i.stato.rifiutato" [color]="i.stato.rifiutato ? 'danger' : 'light'"  >
+                <ion-label>Invito rifiutato</ion-label>
+              </ion-chip>
+  
+            </p>
+
+
+        </ion-label>                          
+
+       <ion-button  color="danger"  (click)="deleteInvite(i.uid)" slot="end" >
+          <ion-icon slot="icon-only" name="close-circle"  ></ion-icon>
+
+        </ion-button>
+
+
+
+    </ion-item> 
+      </ion-list>
+      
+      
+      
+      
+      
+      </ion-card-content>
+      
+      </ion-card>
+
+
+
+
+</div>
+
+
+
+
+
+
+</ion-content>

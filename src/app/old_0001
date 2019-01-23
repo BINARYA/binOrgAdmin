@@ -1,0 +1,42 @@
+import { config } from './app.config';
+import { Utenti } from './app.model';
+import {Injectable} from '@angular/core';  
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+
+
+import { Observable } from 'rxjs';
+
+
+@Injectable()
+export class FirebaseService {
+  // -----------------------------------------------------------------
+  utentiCollectionRef: AngularFirestoreCollection<Utenti>;
+  utenteDoc: AngularFirestoreDocument<Utenti>;
+  // -- non ricordo a cosa serve -----------------
+  utenti: Observable<Utenti[]>;
+
+  constructor(public db: AngularFirestore, 
+              public afAuth: AngularFireAuth
+              ) {
+
+}
+
+
+  getUtenti(){
+      console.log('ciao')
+    this.utentiCollectionRef = this.db.collection<Utenti>(config.collection_endpoint)
+  }
+
+  addUtente(utente){
+      // aggiungo un utente
+    this.utentiCollectionRef.add(utente)
+  }    
+
+  updateUtente(id, update) {
+    this.utenteDoc = this.db.doc<Utenti>(`${config.collection_endpoint}/${id}`);
+    this.utenteDoc.update(update);
+  }
+
+}

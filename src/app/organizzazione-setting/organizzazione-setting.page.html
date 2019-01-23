@@ -1,0 +1,154 @@
+<ion-header>
+    <ion-toolbar color="tertiary">
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    <ion-title> Admin </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  
+    <ion-card>
+    
+    
+      <ion-item-group >
+     
+          <ion-item>
+            <ion-label fixed>Nome</ion-label>
+            <ion-input #boxInputNome type="text" 
+            (keyup)="updateChange(boxInputNome.value, 'nome');" 
+    
+                       [value]="(organizzazione$ | async)?.nome" >
+            </ion-input>
+          </ion-item>
+           
+          <ion-item>
+              <ion-label fixed>Desrcizione</ion-label>
+              <ion-input #boxInputDescrizione type="text" 
+              (keyup)="updateChange(boxInputDescrizione.value, 'descrizione');" 
+                         [value]="(organizzazione$ | async)?.descrizione" >
+              </ion-input>
+            </ion-item>
+                   
+    
+    
+            <ion-item>
+
+        
+              <ion-thumbnail slot="start" *ngIf="(organizzazione$ | async )?.logo as url">
+                  <img [src]="url">
+                </ion-thumbnail>
+        
+                <div class="file" *ngIf="(organizzazione$ | async )?.reference as ref" >
+                    <label class="file-label">
+                    <input class="file-input" type="file" (change)="startUpload($event.target.files, ref)">
+                    </label>
+                </div>
+        
+                <ion-badge color="success" *ngIf="percentage | async as pct" slot="end">{{ pct | number }}%</ion-badge>
+        
+              </ion-item>
+    
+     
+      </ion-item-group>
+    
+
+
+  
+
+  <!--
+  <div *ngIf="snapshot | async as snap">
+    {{ snap.bytesTransferred }} of {{ snap.totalBytes  }} 
+  
+    <div *ngIf="downloadURL | async as url">
+      <h3>Results!</h3>
+      <img [src]="url"><br>
+      <a [href]="url" target="_blank" rel="noopener">Download Me!</a>
+    </div> 
+  
+    <button (click)="task.pause()" class="button is-warning" [disabled]="!isActive(snap)">Pause</button>
+    <button (click)="task.cancel()" class="button is-danger" [disabled]="!isActive(snap)">Cancel</button>
+    <button (click)="task.resume()" class="button is-info"   [disabled]="!(snap?.state === 'paused')">Resume</button>
+  
+  </div>
+-->
+    </ion-card>
+   
+    <ion-card >
+      <ion-card-header>
+          <ion-card-subtitle>gestione</ion-card-subtitle>
+          <ion-card-title>UTENTI</ion-card-title>
+
+        </ion-card-header>
+      
+        <ion-card-content>
+
+     
+
+        <ion-list >
+            <ion-item  (click)="goToDetailUserList()">
+              
+                <ion-icon name="contacts" slot="start"></ion-icon>
+                
+                <ion-label>
+                  <h2>Utenti</h2>
+                  <p>Lista degli utenti</p>
+                </ion-label>                          
+                <ion-icon name="arrow-forward" slot="end"></ion-icon>
+              </ion-item> 
+
+        </ion-list>    
+      </ion-card-content>        
+  </ion-card>
+
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-subtitle>Choose yuor active</ion-card-subtitle>
+            <ion-card-title>TOOLS</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+              <ion-list>
+                  <ion-item *ngFor="let item of toolsList" >
+                
+                      
+
+
+                        <ion-label>
+                            <h2>{{ item.nome  }}</h2>                            
+                          </ion-label>
+                          <ion-toggle disabled="{{ !(item.stato) }}" [(ngModel)]="item.check" (ionChange)="cambioStato(item.uid, item.check)"></ion-toggle>                      
+                          <ion-icon name="{{ item.logo }}" slot="start"> </ion-icon>
+                     
+                
+                
+                  </ion-item> 
+                </ion-list>    
+                
+ 
+
+        </ion-card-content>
+      </ion-card>
+
+
+
+    <!--
+      <ion-card>
+    
+      <ion-card-content >
+          <ion-item color="danger">
+              <ion-icon name="people" slot="start"></ion-icon>
+              <ion-label >Da aggiungere la gestione degli utenti come tools esterno o qua ?</ion-label>          
+          </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+-->
+
+
+
+
+
+</ion-content>

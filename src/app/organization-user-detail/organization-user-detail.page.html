@@ -1,0 +1,146 @@
+<ion-header>
+
+      <ion-toolbar color="tertiary">
+
+          <ion-buttons slot="start">
+              <ion-back-button></ion-back-button>
+            </ion-buttons>
+            </ion-toolbar>
+  <ion-toolbar color="tertiary">
+      <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="tipo">
+          <ion-segment-button value="utenti">
+            Utenti
+          </ion-segment-button>
+          <ion-segment-button value="inviti">
+            Inviti
+          </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [ngSwitch]="tipo">
+
+  <div *ngSwitchCase="'utenti'" >
+
+    <ion-card>
+
+
+      <ion-card-header>
+        <ion-card-title> Utenti  </ion-card-title>
+  
+        </ion-card-header>
+      
+      <ion-card-content>
+        <ion-item>
+          statistiche
+          <ion-chip slot="end" color="primary">
+              <ion-label >20</ion-label>
+            </ion-chip>
+          </ion-item>      
+      </ion-card-content>
+      
+      </ion-card>
+  
+
+
+<ion-card>
+   
+    
+  <!--    <pre>{{ (fireService.afAuth.user | async) | json }}</pre> -->
+      
+      <ion-list>
+        <ion-item  *ngFor="let ou of utenti" > <!-- (click)="goToTool(st, i.uid)" -->
+
+          <ion-avatar slot="start" *ngIf="(ou.utente.data | async )?.photoURL as url">
+          <img [src]="url">
+        </ion-avatar>
+        
+        
+
+        <ion-label>
+<h2> {{ (ou.utente.data | async)?.displayName }} </h2>
+<p> {{ (ou.utente.data | async)?.nome }} {{ (ou.utente.data | async)?.cognome }} </p>
+<!--  <p> {{ ou.utente.uid }} </p><p>{{ (fireService.afAuth.user | async)?.uid }}</p> -->
+        </ion-label>                          
+        <ion-badge *ngIf="(ou.socio)" slot="end" color="primary">Socio</ion-badge>
+        <ion-badge *ngIf="(ou.admin)" slot="end" color="danger">Admin</ion-badge>
+        <ion-badge *ngIf="(ou.superadmin)" slot="end" color="danger">Super Admin</ion-badge>
+        
+        <!-- NON vedo bottone di rimozione utente se sei super admin o te stesso -->
+        <ion-icon *ngIf="(!ou.superadmin) && !(ou.utente.uid==(fireService.afAuth.user | async)?.uid)" name="close-circle" color="danger" slot="end"></ion-icon>
+<!--       <pre>{{ ou | json   }}</pre> -->
+        </ion-item> 
+        </ion-list>
+    
+    </ion-card>
+
+</div>
+
+<div *ngSwitchCase="'inviti'">
+
+
+
+    <ion-card>
+
+
+
+        <ion-item>
+            <ion-label type="email">Email</ion-label>
+            <ion-input></ion-input>
+            <ion-button>
+                <ion-icon slot="end" name="add"></ion-icon>
+                invita
+              </ion-button>
+        
+        </ion-item>          
+
+    </ion-card>
+
+    <ion-card>
+
+
+
+
+        <ion-card-header>
+          <ion-card-title>Inviti in attesa</ion-card-title>
+
+
+     
+        
+        
+        </ion-card-header>
+        
+        <ion-card-content>
+         
+        <ion-list>
+            
+        <ion-item  *ngFor="let i of inviti" > <!-- (click)="goToTool(st, i.uid)" -->
+        
+        <ion-label>
+          <h2>{{ i.mail_invito }}</h2>
+          <p>{{ i.uid  }}</p>
+          <p>{{ i.organizzazione }}</p>
+        </ion-label>                          
+        <ion-icon name="close-circle" color="danger" slot="end"></ion-icon>
+        </ion-item> 
+        </ion-list>
+        
+        
+        
+        
+        
+        </ion-card-content>
+        
+        </ion-card>
+
+
+
+
+</div>
+
+
+
+
+
+
+</ion-content>

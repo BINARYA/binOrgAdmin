@@ -1,0 +1,105 @@
+<ion-app >
+  <ion-split-pane disabled="false" >
+    <ion-menu >
+
+<!--
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>NOME</ion-title>
+          <ion-buttons slot="primary">
+              <ion-button color="primary" (click)="seeTutorial()">     {{ (fireService.user$ | async)?.tutorialComplete }}
+                <ion-icon slot="icon-only" name="more"></ion-icon>
+              </ion-button>
+        
+        
+            </ion-buttons>
+        
+        </ion-toolbar>
+
+      
+
+
+      </ion-header>
+      -->      
+      <ion-content color="primary">
+
+<div *ngIf="!(this.router.routerState.snapshot.url).includes('login')"> 
+
+          <ion-grid>
+              <ion-row>
+
+
+                <ion-col > 
+                    <div style="margin:auto;height: 200px;width: 200px;margin-top:55px;">
+                      
+                        <ion-img  class="menuImg" *ngIf="(fireService.user$ | async )?.photoURL as url" [src]="url" ></ion-img> 
+                      
+                      </div>
+            
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div text-center>
+                      <h2>{{ (fireService.user$ | async)?.displayName }}</h2>
+                      <p>{{ (fireService.user$ | async)?.nome }} {{ (fireService.user$ | async)?.cognome }}</p>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <!--
+            <div *ngIf="checkRoute(p.url)">
+
+              </div>
+-->
+
+
+
+
+<ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+  <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" [color]="checkRoute(p.url) ? 'selected' : 'pippo'" >
+    <ion-icon slot="start" [name]="p.icon"></ion-icon>
+
+    <ion-label >
+      {{p.title}}
+    </ion-label>
+  </ion-item>              
+
+</ion-menu-toggle>
+
+
+
+      <ion-list >
+
+<!--
+    <ion-item *ngFor="let item of orgUtente" (click)="goToDetail(item)">
+        <ion-avatar slot="start" *ngIf="(item.organizzazione.data | async )?.logo as url">
+            <img [src]="url">
+          </ion-avatar>
+          <ion-label>
+              <h2>{{ (item.organizzazione.data | async)?.nome }}</h2>
+            </ion-label>
+    </ion-item> 
+
+
+
+
+  <ion-menu-toggle auto-hide="false"  >
+            <ion-item >
+              <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+              <ion-label>
+                INFO 
+              </ion-label>
+            </ion-item>              
+          </ion-menu-toggle>
+        -->
+      </ion-list>
+    </div>
+
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

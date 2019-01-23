@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>    
+    <ion-buttons slot="end">
+          <ion-button color="danger" (click)="this.router.navigate(['home'])"> 
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>     
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card>
+      <ion-card-header>
+          <ion-card-title>Info Organizzazione</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>     
+      <ion-item-group >
+        <ion-item>
+          <ion-label fixed>Nome</ion-label>
+          <ion-input #boxInputNome type="text" [value]="nome" ></ion-input>
+        </ion-item>          
+        <ion-item>
+          <ion-label fixed>Descrizione</ion-label>
+          <ion-textarea rows="5" maxLength="1500" #boxInputDescrizione placeholder="Enter more information here..."  [value]="descrizione"></ion-textarea>
+        </ion-item>
+      </ion-item-group>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Choose yuor active</ion-card-subtitle>
+      <ion-card-title>TOOLS</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of this.toolsOrganizzazione" >
+          <ion-label>
+              <h2>{{ item.nome }}</h2>
+              <p>{{ item.stato }}</p>
+              <h2>{{ item.check }}</h2>
+              <p>{{ item | json }}</p>
+            </ion-label>
+            <ion-toggle disabled="{{!item.stato}}" [(ngModel)]="item.check" ></ion-toggle>                      
+            <ion-icon name="{{ item.logo }}" slot="start"> </ion-icon>
+        </ion-item> 
+      </ion-list>    
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer translucent="true">
+  <ion-toolbar>
+    <ion-button expand="block"  color="primary" (click)="addOrg(boxInputNome.value, boxInputDescrizione.value)">
+        <ion-icon name="add"></ion-icon>  CREATE 
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

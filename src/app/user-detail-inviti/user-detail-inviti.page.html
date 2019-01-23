@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar color="tertiary">
+        <ion-title> Invito recapitato</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div *ngIf="auth.user$ | async; then authenticated else guest"></div>
+
+    <!-- User NOT logged in -->
+    <ng-template #guest>
+        <h3>Howdy, GUEST</h3>
+        <p>Login to get started...</p>
+        
+        <button (click)="auth.googleSignin()">
+            <i class="fa fa-google"></i> Connect Google
+        </button>
+    </ng-template>
+
+    <!-- User logged in -->
+    <ng-template #authenticated>
+        <ion-card *ngIf="auth.user$ | async as user">
+            <ion-item>
+                <ion-icon name="paper-plane" slot="start"></ion-icon>
+                <ion-label> xx-mm-aaaa </ion-label>
+                <ion-button fill="outline" color="danger" slot="end" (click)="declineInvite()"> <ion-icon name="close" slot="icon-only"></ion-icon> </ion-button>
+            </ion-item>
+            <ion-card-content>
+                Ciao {{ user.displayName }}, sei stato invitato a collaborare con {{ ( org | async )?.nome }}.
+                (Se ritirni che questo invito sia spam avvisaci)
+                <p> {{ ( invito | async)?.mail_invito }}</p>
+                <p> {{ ( invito | async)?.organizzazione }}</p>
+                <p> {{ ( invito | async)?.creatorId }}</p>
+                <ion-button *ngIf="( org | async )?.nome" color="success" size="large" expand="block" (click)="joinOrganizzazione()" >Join the team !!</ion-button>
+            </ion-card-content>
+        </ion-card>
+    </ng-template>
+
+</ion-content>

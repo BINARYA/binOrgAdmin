@@ -1,0 +1,147 @@
+<ion-header>
+    <ion-toolbar color="light">
+    <ion-title> Settings  </ion-title>
+    <ion-buttons slot="end">
+        <ion-button color="danger" (click)="this.router.navigate(['home'])"> 
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>     
+
+  </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+              <ion-card>
+                  <ion-card-header>
+                    General information
+                  </ion-card-header>
+            
+                  <ion-card-content>      
+                    <ion-item-group >
+                  
+                        <ion-item>
+                          <ion-label fixed>Nome</ion-label>
+                          <ion-input #boxInputNomeUtente type="text" 
+                          (keyup)="fireService.updateUserGeneric(boxInputNomeUtente.value, 'nome');" 
+                  
+                                     [value]="(auth.user$ | async)?.nome" >
+                          </ion-input>
+                        </ion-item>
+            
+                        <ion-item>
+                            <ion-label fixed>Cognome</ion-label>
+                            <ion-input #boxInputCognomeUtente type="text" 
+                            (keyup)="fireService.updateUserGeneric(boxInputCognomeUtente.value, 'cognome');" 
+                    
+                                       [value]="(auth.user$ | async)?.cognome" >
+                            </ion-input>
+                          </ion-item>
+                          
+            
+                        <ion-item>
+                            <ion-label fixed>Nick Name</ion-label>
+                            <ion-input #boxInputDisplayNameUtente type="text" 
+                            (keyup)="fireService.updateUserGeneric(boxInputDisplayNameUtente.value, 'displayName');" 
+                                       [value]="(auth.user$ | async)?.displayName" >
+                            </ion-input>
+                          </ion-item>
+                                 
+                   
+                          <ion-item>
+                              <ion-thumbnail slot="start" *ngIf="(auth.user$ | async )?.photoURL as url">
+                                  <img [src]="url">
+                                </ion-thumbnail>
+                        
+                                <div class="file" *ngIf="(auth.user$ | async )?.photoReferenceUrl as ref">
+                                    <label class="file-label">
+                                        <input  class="file-input" type="file" (change)="startUpload($event.target.files, ref)">
+                                    </label>
+                                </div>
+                        
+                                <ion-badge color="success" *ngIf="percentage | async as pct" slot="end">{{ pct | number }}%</ion-badge>
+                        
+                          </ion-item>
+            
+            
+                    </ion-item-group>
+                  </ion-card-content>
+                  </ion-card>
+                  
+                    <ion-card>
+                        <ion-card-header>
+                          Notification
+                        </ion-card-header>
+                        <ion-card-content>
+                          <ion-item>
+                            <ion-label>Organizaztions alert</ion-label>
+                            <ion-toggle slot="end" color="primary"></ion-toggle>
+                            <ion-input></ion-input>
+                          </ion-item>
+                          <ion-item>
+                            <ion-label>Advertising alert</ion-label>
+                            <ion-toggle slot="end"></ion-toggle>
+                            <ion-input></ion-input>
+                          </ion-item>
+                          <ion-item>
+                            </ion-item>
+                        </ion-card-content>
+                      </ion-card>
+            
+            
+            
+                  
+                        <ion-card>
+                            <ion-card-header color="primary">
+                              Utils
+                            </ion-card-header>
+                            <ion-card-content>
+                              <ion-list>
+                                  <div *ngFor="let u of appUtilsSettings">
+                                      <ion-item (click)="goTo(u.url)">
+                                        <ion-icon slot="start" name="{{u.icon}}"></ion-icon>
+                                        <ion-label >
+                                          {{u.title}}
+                                        </ion-label>            
+                                        <ion-icon slot="end" name="arrow-forward"></ion-icon>
+                                        
+                                      </ion-item>              
+                                  </div>
+                                <ion-item>
+                                </ion-item>
+                              </ion-list>
+                            </ion-card-content>
+                          </ion-card>
+              
+            
+              <ion-card>
+                <ion-card-header>
+                Account
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-list>
+                      <ion-button *ngIf="(auth.user$ | async)" expand="block" fill="outline" color="primary" (click)="auth.signOut()">   LOG OUT
+                          <ion-icon slot="icon-only" name="log-out"></ion-icon>
+                        </ion-button>
+<!--
+                        <ion-item>
+                            <pre>{{auth.afAuth.auth.currentUser | json }} </pre>
+                        </ion-item>
+
+                        <ion-item>
+                            <pre>{{ (auth.user$ | async) | json }} </pre>
+                        </ion-item>
+-->
+
+                      <ion-item>
+                        </ion-item>  
+                      <ion-button expand="block" fill="outline" color="danger">DELETE ACCOUNT</ion-button>
+                  
+                  </ion-list>
+                  <ion-item>
+                    </ion-item>
+                </ion-card-content>
+
+              </ion-card>
+            
+</ion-content>

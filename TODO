@@ -1,0 +1,116 @@
+lo sviluppo del service deve essere la base per le organizzazioni. 
+
+
+Funzionalità:
+
+- Creare un utente
+- Creare una organizzazione
+- Invitare amici nell'organizzazione
+- visualizzare statistiche di base sull'organizzazione
+
+- attivare un modulo sulla organizzazione
+- stabilire n livelli di privilegi in modo da facilitare la gestione delle attività dei moduli
+
+- definire un documento sulla privacy
+
+(il modulo potra essere usato da uno dei livelli ? oppure il livello di utenza sarà definito internamente ?)
+
+
+
+POSSIBILI MODULI:
+
+Libro soci (organizzazione informazioni, e visibilità per il pubblico)
+
+Visibilità dello staff (contatti, foto e descrione)
+
+iscrizione automatica di un nuovo socio con pagamento di una quota
+
+organizzazione / rendicontazione spese (prelievo di un file della banca ?)
+
+organizzazione attività
+
+spontaneo traking ore Lavoro dedicate sulle attività
+
+chat
+
+organizzazione scadenze e calendario
+
+Organizzazione e visibilità file amministrativi
+
+
+
+
+
+
+
+
+
+
+Futuro visionario:
+
+Il sistema sarà ospitato su un contratto in chain che permette alle organizzazioni di sbloccare l'utilizzo di software di terzi pagando a loro l'eventuale costo.
+In quqesto modo i tools potranno essere sviluppati da terzi e il grosso del lavoro sarà spostato sul creare degli standard su cui far sviluppare gli altri. 
+
+Per questo dovremo creare una moneta di scambio interna che le organizzazioni potranno comperare e scambiarsi. 
+bisognerà mantenere un servizio di acquisto per mantenere il prezzo della valuta stabile nel tempo o sull'annualità.
+
+Una ico per garantire lo sviluppo dell'ecosistema verrà implementata quando la base di utenti/community sarà matura e avremo sufficiente fiducia. 
+
+
+
+
+
+BUG:
+dopo login non recupera di nuovo le organizzazioni
+
+Il riferimento entro utente alle proprie organizzazioni da noia negli aggiornamenti. Probabilmente meglio rimuoverlo e trovare un'altra soluzione
+
+Quando si cancella una organizzazione si deve anche cancellare da tutti i riferimenti negli utenti. da spostare su cloud funciont o cambiare logica
+
+
+quando non ci sta il riferimento ad una immagine non lo rimuove tira fuori un errore e si pianta
+
+
+Aggiungere un ridimensionamento delle immagini per non avere sorprese
+
+
+Probabilmente a livello di architettura vanno creati delle collezzioni pubbliche e private per facilitarne la visibilità all'esterno
+
+
+
+I tools possono non essere accessibili da tutti ? 
+
+
+
+
+Compattare i tools e il modo di sceglierli, perchè se sono molti diventa difficile 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

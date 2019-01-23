@@ -1,4 +1,4 @@
-# binorg  [![Status](https://img.shields.io/badge/status-Alpha-red.svg)](https://github.com/BINARYA) [![Status](https://img.shields.io/badge/Is%20working%20%3F-NO-red.svg)](https://github.com/BINARYA) [![Status](https://img.shields.io/badge/framework-ionic%204-blu.svg)](https://github.com/BINARYA)
+# binOrgAdmin  [![Status](https://img.shields.io/badge/status-Alpha-red.svg)](https://github.com/BINARYA) [![Status](https://img.shields.io/badge/Is%20working%20%3F-NO-red.svg)](https://github.com/BINARYA) [![Status](https://img.shields.io/badge/framework-ionic%204-blu.svg)](https://github.com/BINARYA)
 
 ### - Demo app access to binarya tools. -
 
